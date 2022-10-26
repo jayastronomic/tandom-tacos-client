@@ -2,7 +2,8 @@ import React, { FC, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { createUserIfNotExist } from "../../network/User";
 import { useDispatch } from "react-redux";
-import { createUserSuccess } from "../../features/user/userSlice";
+import { fetchUserSuccess } from "../../features/user/userSlice";
+import { User } from "../../interfaces/user.interface";
 
 const SignUpForm: FC = () => {
   const navigate = useNavigate();
@@ -37,8 +38,7 @@ const SignUpForm: FC = () => {
     const user = await createUserIfNotExist(newUser).catch((err) =>
       console.log(err)
     );
-    dispatch(createUserSuccess(user));
-
+    dispatch(fetchUserSuccess(user));
     navigate("/");
   };
 

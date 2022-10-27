@@ -8,6 +8,8 @@ import SignUp from "./pages/SignUpPage/SignUp";
 import Home from "./pages/HomePage/Home";
 import Login from "./pages/LoginPage/Login";
 
+import AppWrapper from "./components/AppWrapper";
+
 const App: FC = (): JSX.Element => {
   const authUser = useAppSelector((state) => state.user);
   const dispatch = useDispatch();
@@ -23,7 +25,9 @@ const App: FC = (): JSX.Element => {
     <Routes>
       <Route path="/login" element={<Login />} />
       <Route path="/signup" element={<SignUp />} />
-      <Route path="/" element={<Home />} />
+      <Route path="/" element={<AppWrapper />}>
+        <Route path="/" element={<Home />} />
+      </Route>
     </Routes>
   );
 };

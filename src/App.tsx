@@ -9,6 +9,7 @@ import Home from "./pages/HomePage/Home";
 import Login from "./pages/LoginPage/Login";
 
 import AppWrapper from "./components/AppWrapper";
+import RecipeCard from "./components/RecipeCard";
 
 const App: FC = (): JSX.Element => {
   const authUser = useAppSelector((state) => state.user);
@@ -28,6 +29,7 @@ const App: FC = (): JSX.Element => {
       <Route path="/" element={<AppWrapper />}>
         <Route path="/" element={<Home />} />
       </Route>
+      <Route path="/card" element={<RecipeCard />} />
     </Routes>
   );
 };

@@ -7,9 +7,9 @@ import { useAppSelector } from "./app/hooks";
 import SignUp from "./pages/SignUpPage/SignUp";
 import Home from "./pages/HomePage/Home";
 import Login from "./pages/LoginPage/Login";
+import Explore from "./pages/ExplorePage/Explore";
 
 import AppWrapper from "./components/AppWrapper";
-import RecipeCard from "./components/RecipeCard";
 
 const App: FC = (): JSX.Element => {
   const authUser = useAppSelector((state) => state.user);
@@ -28,8 +28,8 @@ const App: FC = (): JSX.Element => {
       <Route path="/signup" element={<SignUp />} />
       <Route path="/" element={<AppWrapper />}>
         <Route path="/" element={<Home />} />
+        <Route path="/explore" element={<Explore />} />
       </Route>
-      <Route path="/card" element={<RecipeCard />} />
     </Routes>
   );
 };

@@ -1,9 +1,10 @@
+import { Ingredient } from "./ingredient.interface";
+
 export interface Recipe {
   uuid: string;
   name: string;
-  description: string;
-  instructions: string;
+  directions: string[];
   restrictions: string[];
-  ingredients: string[] | null;
-  user_uuid: string;
+  ingredients: Ingredient[];
+  user_uuid?: string;
 }

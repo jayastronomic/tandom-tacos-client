@@ -1,11 +1,13 @@
 import { configureStore, ThunkAction, Action } from "@reduxjs/toolkit";
 import userReducer from "../features/user/userSlice";
 import recipesReducer from "../features/recipes/recipesSlice";
+import recipeReducer from "../features/recipes/recipeSlice";
 
 export const store = configureStore({
   reducer: {
     user: userReducer,
     recipes: recipesReducer,
+    recipe: recipeReducer,
   },
 });
 

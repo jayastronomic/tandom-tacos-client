@@ -8,6 +8,7 @@ import SignUp from "./pages/SignUpPage/SignUp";
 import Home from "./pages/HomePage/Home";
 import Login from "./pages/LoginPage/Login";
 import Explore from "./pages/ExplorePage/Explore";
+import Recipe from "./pages/RecipePage/Recipe";
 
 import AppWrapper from "./components/AppWrapper";
 
@@ -28,6 +29,7 @@ const App: FC = (): JSX.Element => {
       <Route path="/signup" element={<SignUp />} />
       <Route path="/" element={<AppWrapper />}>
         <Route path="/" element={<Home />} />
+        <Route path="/recipes/:uuid" element={<Recipe />} />
         <Route path="/explore" element={<Explore />} />
       </Route>
     </Routes>

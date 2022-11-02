@@ -3,7 +3,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { regular } from "@fortawesome/fontawesome-svg-core/import.macro";
 import { Recipe } from "../interfaces/recipe.interface";
 import { Highlight } from "react-instantsearch-hooks-web";
-import { useLocation } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { Ingredient } from "../interfaces/ingredient.interface";
 
 type RecipceCardProps = {
@@ -46,6 +46,7 @@ const RecipeCard: any = ({ recipe }: RecipceCardProps): JSX.Element => {
           </div>
         </div>
       </div>
+
       <div className="bg-white h-1/2 shadow px-4 pt-4 overflow-auto">
         <div className="text-sm text-gray-700 font-light">
           {location.pathname === "/"
@@ -78,6 +79,13 @@ const RecipeCard: any = ({ recipe }: RecipceCardProps): JSX.Element => {
             )}
           </p>
         </div>
+        <Link
+          className="absolute bottom-40 right-2 text-sm text-blue-500 hover:underline"
+          to={`/recipes/${recipe.uuid}`}
+          state={{ uuid: recipe.uuid }}
+        >
+          see details
+        </Link>
       </div>
     </div>
   );

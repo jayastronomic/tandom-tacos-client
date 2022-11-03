@@ -9,6 +9,7 @@ import Home from "./pages/HomePage/Home";
 import Login from "./pages/LoginPage/Login";
 import Explore from "./pages/ExplorePage/Explore";
 import Recipe from "./pages/RecipePage/Recipe";
+import Profile from "./pages/ProfilePage/Profile";
 
 import AppWrapper from "./components/AppWrapper";
 
@@ -30,6 +31,7 @@ const App: FC = (): JSX.Element => {
       <Route path="/" element={<AppWrapper />}>
         <Route path="/" element={<Home />} />
         <Route path="/recipes/:uuid" element={<Recipe />} />
+        <Route path="/:username" element={<Profile />} />
         <Route path="/explore" element={<Explore />} />
       </Route>
     </Routes>

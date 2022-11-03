@@ -1,5 +1,5 @@
-import { FC } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { useAppSelector } from "../app/hooks";
 import { regular } from "@fortawesome/fontawesome-svg-core/import.macro";
 import { Recipe } from "../interfaces/recipe.interface";
 import { Highlight } from "react-instantsearch-hooks-web";
@@ -11,11 +11,11 @@ type RecipceCardProps = {
 };
 
 const RecipeCard: any = ({ recipe }: RecipceCardProps): JSX.Element => {
-  console.log(recipe);
   const location = useLocation();
+  const authUser = useAppSelector((state) => state.user);
 
   const tagClass =
-    "border-b border-gray-400 bg-black bg-opacity-60 px-1 transition hover:translate-x-2 durattion-200 w-[6rem]";
+    "border-b border-gray-400 bg-black bg-opacity-60 px-1 transition hover:translate-x-2 durattion-200 w-[6rem] text-sm";
 
   const cardContainerClass =
     "flex flex-col rounded-2xl border-b h-96 w-96 drop-shadow overflow-hidden transition" +
@@ -32,7 +32,8 @@ const RecipeCard: any = ({ recipe }: RecipceCardProps): JSX.Element => {
         <div className="absolute flex flex-col justify-center items-center inset-0 bg-opacity-40 w-full h-full bg-neutral-900 ">
           <div className="flex justify-center">
             <p className="text-white font-extralight text-2xl">
-              {location.pathname === "/" ? (
+              {location.pathname === "/" ||
+              location.pathname === `/${authUser.username}` ? (
                 recipe.name
               ) : (
                 <Highlight hit={recipe as any} attribute="name" />
@@ -47,40 +48,45 @@ const RecipeCard: any = ({ recipe }: RecipceCardProps): JSX.Element => {
         </div>
       </div>
 
-      <div className="bg-white h-1/2 shadow px-4 pt-4 overflow-auto">
+      <div className="bg-white h-1/2 shadow px-4 pt-4 overflow-auto hide-scrollbar">
         <div className="text-sm text-gray-700 font-light">
-          {location.pathname === "/"
+          <h3 className="font-bold underline">Ingredients</h3>
+          {location.pathname === "/" ||
+          location.pathname === `/${authUser.username}`
             ? recipe.ingredients.map((ingredient: Ingredient) => {
                 return (
                   <p>
-                    {ingredient.name} - {ingredient.quantity}
+                    {ingredient.quantity} - {ingredient.name}
                   </p>
                 );
               })
             : recipe.ingredients.map((ingredient: any) => {
                 return (
                   <p>
-                    {ingredient[0]} - {ingredient[1]}
+                    {ingredient[1]} - {ingredient[0]}
                   </p>
                 );
               })}
         </div>
-        <div className="absolute bottom-3 right-5 flex space-x-4 items-center text-sm text-right pt-2 text-gray-600 font-semibold">
+        <div className="absolute top-40 right-3 flex space-x-4 items-center text-sm text-right py-1 text-gray-600 font-semibold bg-white rounded px-4">
           <FontAwesomeIcon icon={regular("heart")} size="xl" />
           <p>
-            {!!recipe.user_uuid ? (
-              <p>
-                Recipe by <span className="hover:underline">Jake</span>
+            {!!recipe.user_id ? (
+              <p className="text-xs">
+                Recipe by{" "}
+                <span className="hover:underline text-blue-500">
+                  {authUser.username}
+                </span>
               </p>
             ) : (
-              <p>
+              <p className="text-xs">
                 Recipe by <span className="text-orange-300">Tandem</span>
               </p>
             )}
           </p>
         </div>
         <Link
-          className="absolute bottom-40 right-2 text-sm text-blue-500 hover:underline"
+          className="absolute top-8 right-5 text-sm text-white font-semibold  bg-blue-500 rounded px-2 hover:bg-blue-600"
           to={`/recipes/${recipe.uuid}`}
           state={{ uuid: recipe.uuid }}
         >

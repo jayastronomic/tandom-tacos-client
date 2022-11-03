@@ -8,6 +8,7 @@ const initialState: Recipe = {
   restrictions: [],
   ingredients: [],
   user_uuid: "",
+  user_id: 0,
 };
 export const recipeSlice = createSlice({
   name: "recipe",

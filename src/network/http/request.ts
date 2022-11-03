@@ -21,7 +21,6 @@ export const request = async (
   }
   options.credentials = "include";
 
-  console.log(API, options);
   const response = await fetch(API, options);
   const data = await response.json();
   return data;

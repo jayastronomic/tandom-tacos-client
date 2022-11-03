@@ -1,51 +1,26 @@
-import React, { Dispatch, FC, useReducer } from "react";
+import React, { Dispatch, useReducer } from "react";
 import { createRecipe } from "../network/Recipe";
 import { useDispatch } from "react-redux";
+import { useAppSelector } from "../app/hooks";
 import { createRecipeSuccess } from "../features/recipes/recipesSlice";
+import IngredientField from "./IngredientField";
 
 function reducer(state: any, action: any) {
   switch (action.type) {
-    case "recipeName":
-      return { ...state, [action.key]: action.value };
-    case "ingredientName":
-      return { ...state, [action.key]: action.value };
-    case "quantity":
-      return { ...state, [action.key]: action.value };
-    case "preparation":
+    case "name":
       return { ...state, [action.key]: action.value };
     case "directions":
       return { ...state, [action.key]: action.value };
-    case "vegan":
+    case "INGREDIENT_FIELDS":
+      const ingredients = [...state.ingredientList];
+      ingredients[action.index][action.name] = action.value;
+      return { ...state, ingredientList: ingredients };
+    case "ADD_INGREDIENT_FIELD":
       return {
         ...state,
-        restrictions: { ...state.restrictions, [action.key]: action.checked },
+        ingredientList: [...state.ingredientList, action.payload],
       };
-    case "vegetarian":
-      return {
-        ...state,
-        restrictions: { ...state.restrictions, [action.key]: action.checked },
-      };
-    case "halal":
-      return {
-        ...state,
-        restrictions: { ...state.restrictions, [action.key]: action.checked },
-      };
-    case "dairy-free":
-      return {
-        ...state,
-        restrictions: { ...state.restrictions, [action.key]: action.checked },
-      };
-    case "nut-free":
-      return {
-        ...state,
-        restrictions: { ...state.restrictions, [action.key]: action.checked },
-      };
-    case "kosher":
-      return {
-        ...state,
-        restrictions: { ...state.restrictions, [action.key]: action.checked },
-      };
-    case "gluten-free":
+    case "TOGGLE_RESTRICTIONS":
       return {
         ...state,
         restrictions: { ...state.restrictions, [action.key]: action.checked },
@@ -56,10 +31,7 @@ function reducer(state: any, action: any) {
 }
 
 const initialState = {
-  recipeName: "",
-  ingredientName: "",
-  quantity: "",
-  preparation: "",
+  name: "",
   directions: "",
   restrictions: {
     vegan: false,
@@ -70,6 +42,7 @@ const initialState = {
     kosher: false,
     ["gluten-free"]: false,
   },
+  ingredientList: [{ name: "", quantity: "", preparation: "" }],
 };
 
 type AddRecipeFormProps = {
@@ -77,14 +50,36 @@ type AddRecipeFormProps = {
 };
 
 const AddRecipeForm = ({ setShow }: AddRecipeFormProps): JSX.Element => {
-  const [state, localDispatch]: any = useReducer(reducer, initialState);
+  const [state, localDispatch] = useReducer(reducer, initialState);
   const dispatch = useDispatch();
+  const user = useAppSelector((state) => state.user);
+  console.log(state);
 
-  const handleChange = (e: any) => {
+  const handleChange = (e: any): void => {
     localDispatch({
       type: e.target.name,
       key: e.target.name,
       value: e.target.value,
+      checked: e.target.checked,
+    });
+  };
+
+  const handleIngredients = (
+    e: React.ChangeEvent<HTMLInputElement>,
+    index: number
+  ): void => {
+    localDispatch({
+      type: "INGREDIENT_FIELDS",
+      value: e.target.value,
+      name: e.target.name,
+      index: index,
+    });
+  };
+
+  const handleRestrictions = (e: React.ChangeEvent<HTMLInputElement>): void => {
+    localDispatch({
+      type: "TOGGLE_RESTRICTIONS",
+      key: e.target.name,
       checked: e.target.checked,
     });
   };
@@ -100,16 +95,11 @@ const AddRecipeForm = ({ setShow }: AddRecipeFormProps): JSX.Element => {
 
     const payload = {
       recipe: {
-        name: state.recipeName,
+        name: state.name,
         directions: directions,
         restrictions: restrictions,
-        ingredients: [
-          {
-            name: state.ingredientName,
-            quantity: state.quantity,
-            preparation: state.preparation,
-          },
-        ],
+        ingredients: state.ingredientList,
+        user_id: user.id,
       },
     };
 
@@ -118,127 +108,142 @@ const AddRecipeForm = ({ setShow }: AddRecipeFormProps): JSX.Element => {
     setShow(false);
   };
 
+  const handleAddIngredientField = (): void => {
+    localDispatch({
+      type: "ADD_INGREDIENT_FIELD",
+      payload: {
+        name: "",
+        quantity: "",
+        preparation: "",
+      },
+    });
+  };
   return (
     <form
       onSubmit={handleSubmit}
-      className="flex flex-col absolute bg-white h-[40rem] w-[28rem] rounded p-4 overflow-auto"
+      className="flex flex-col absolute bg-white h-[40rem] w-[28rem] rounded-2xl p-4 overflow-auto"
     >
-      <p>Add Recipe</p>
+      <p className="text-2xl border-b border-gray-500 font-bold">Add Recipe</p>
       <input
-        name="recipeName"
-        value={state.recipeName}
+        className="border mt-4 rounded px-4 py-2 focus:outline-none focus:ring-2 focus:bg-blue-50"
+        name="name"
+        value={state.name}
         type="text"
         placeholder="Name of recipe..."
-        onChange={handleChange}
+        onChange={(e) => handleChange(e)}
       />
-      <p>restrictions</p>
-      <div className="grid grid-cols-3">
-        <label>
-          vegan
+      <p className="text-xl font-semibold text-gray-800 pt-4">Restrictions</p>
+      <div className="grid grid-cols-3 border rounded p-4 text-gray-600">
+        <label className="space-x-2">
+          <span>vegan</span>
           <input
             type="checkbox"
             value="vegan"
             name="vegan"
-            onChange={handleChange}
+            onChange={handleRestrictions}
             checked={state.vegan}
           />
         </label>
-        <label>
-          vegetarian
+        <label className="space-x-2">
+          <span>vegetarian</span>
           <input
             type="checkbox"
             value="vegetarian"
             name="vegetarian"
-            onChange={handleChange}
+            onChange={handleRestrictions}
             checked={state.vegetarian}
           />
         </label>
-        <label>
-          halal
+        <label className="space-x-2">
+          <span>halal</span>
           <input
             type="checkbox"
             value="halal"
             name="halal"
-            onChange={handleChange}
+            onChange={handleRestrictions}
             checked={state.halal}
           />
         </label>
-        <label>
-          dairy-free
+        <label className="space-x-2">
+          <span>dairy-free</span>
           <input
             type="checkbox"
             value="dairy-free"
             name="dairy-free"
-            onChange={handleChange}
+            onChange={handleRestrictions}
             checked={state["dairy-free"]}
           />
         </label>
-        <label>
-          nut-free
+        <label className="space-x-2">
+          <span>nut-free</span>
           <input
             type="checkbox"
             value="nut-free"
             name="nut-free"
-            onChange={handleChange}
+            onChange={handleRestrictions}
             checked={state["nut-free"]}
           />
         </label>
-        <label>
-          kosher
+        <label className="space-x-2">
+          <span>kosher</span>
           <input
             type="checkbox"
             value="kosher"
             name="kosher"
-            onChange={handleChange}
+            onChange={handleRestrictions}
             checked={state.kosher}
           />
         </label>
-        <label>
-          gluten-free
+        <label className="space-x-2">
+          <span>gluten-free</span>
           <input
             type="checkbox"
             value="gluten-free"
             name="gluten-free"
-            onChange={handleChange}
+            onChange={handleRestrictions}
             checked={state["gluten-free"]}
           />
         </label>
       </div>
-      <p>ingredients</p>
-      <div className="border h-[10rem]">
-        <div className="flex overflow-auto">
-          <input
-            name="ingredientName"
-            value={state.ingredientName}
-            type="text"
-            placeholder="Ingredient name..."
-            onChange={handleChange}
-          />
-          <input
-            name="quantity"
-            type="text"
-            placeholder="Quantity..."
-            onChange={handleChange}
-            value={state.quantity}
-          />
-          <input
-            name="preparation"
-            value={state.preparation}
-            type="text"
-            placeholder="Preparation..."
-            onChange={handleChange}
-          />
-        </div>
+      <div className="flex justify-between py-4">
+        <p className="text-xl font-semibold">Ingredients</p>
+        <button
+          type="button"
+          onClick={() => handleAddIngredientField()}
+          className="rounded-xl bg-blue-500 text-white font-semibold self-end text-sm px-2 py-1"
+        >
+          + add ingredient
+        </button>
       </div>
-      <p>directions</p>
-      <textarea
-        className="border"
-        name="directions"
-        value={state.directions}
-        placeholder="How do you make it?..."
-        onChange={handleChange}
-      />
-      <button className="bg-gray-300" type="submit">
+
+      <div className="h-auto">
+        {state.ingredientList.map((ingredientObj: any, index: number) => {
+          return (
+            <IngredientField
+              key={index}
+              position={index}
+              state={ingredientObj}
+              handleIngredients={(e: React.ChangeEvent<HTMLInputElement>) =>
+                handleIngredients(e, index)
+              }
+            />
+          );
+        })}
+      </div>
+      <div className="h-auto">
+        <p className="pt-4 text-xl font-semibold text-gray-700">Directions</p>
+        <textarea
+          className="border resize-none w-full h-72 rounded p-2 focus:outline-none focus:ring-2 focus:bg-blue-50"
+          name="directions"
+          value={state.directions}
+          placeholder="How do you make it?..."
+          onChange={(e) => handleChange(e)}
+        />
+      </div>
+      <button
+        className="bg-blue-400 text-white p-2 rounded hover:bg-blue-500 transition"
+        type="submit"
+      >
         Add recipe
       </button>
     </form>

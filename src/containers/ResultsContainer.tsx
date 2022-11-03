@@ -2,12 +2,10 @@ import { instantMeiliSearch } from "@meilisearch/instant-meilisearch";
 import {
   InstantSearch,
   SearchBox,
-  Hits,
   RefinementList,
   InfiniteHits,
 } from "react-instantsearch-hooks-web";
 import Hit from "../components/Hit";
-import ExploreVideo from "../pages/ExplorePage/ExploreVideo";
 
 const searchClient = instantMeiliSearch(
   "http://127.0.0.1:7700", // Meilisearch host
@@ -16,7 +14,7 @@ const searchClient = instantMeiliSearch(
 
 const ResultsContainer = () => {
   return (
-    <div className="flex flex-col overflow-auto items-center px-4 h-screen">
+    <div className="flex flex-col overflow-auto items-center h-screen hide-scrollbar">
       <InstantSearch searchClient={searchClient} indexName="Recipe">
         <SearchBox
           autoFocus
@@ -35,7 +33,7 @@ const ResultsContainer = () => {
           operator="and"
           attribute="restrictions"
           classNames={{
-            root: "bg-white rounded-xl mt-2 w-full p-4 shadow",
+            root: "bg-white rounded-xl mt-2 w-[20rem] p-4 shadow",
             label: "space-x-2",
             list: "text-gray-600 font-semibold text-sm",
           }}
@@ -44,8 +42,8 @@ const ResultsContainer = () => {
           hitComponent={Hit}
           classNames={{
             loadMore:
-              "py-4 rounded-full mb-4 mt-4 bg-white bg-blue-400 text-white hover:bg-blue-500 transition",
-            root: "flex flex-col w-full",
+              "py-4 rounded-full mb-4 mt-4 bg-white bg-blue-400 text-white hover:bg-blue-500 transition w-[20rem]",
+            root: "flex flex-col w-full items-center",
           }}
           showPrevious={false}
         />

@@ -11,3 +11,7 @@ export const createRecipe = async (data: object): Promise<any> => {
 export const showRecipe = async (id: string): Promise<any> => {
   return await request(`/api/v1/recipes/${id}`, "GET");
 };
+
+export const fetchAuthUserRecipes = async (id: string): Promise<any> => {
+  return await request(`/api/v1/users/${id}/recipes`, "GET");
+};

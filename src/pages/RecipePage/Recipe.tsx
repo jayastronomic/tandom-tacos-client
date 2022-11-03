@@ -46,7 +46,7 @@ const Recipe: FC = (): JSX.Element => {
           return (
             <div className="flex flex-col">
               <h6 className="font-semibold"> Step {i + 1}</h6>
-              <p>{direction}</p>
+              <p className="break-all">{direction}</p>
             </div>
           );
         })}

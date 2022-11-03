@@ -6,5 +6,6 @@ export interface Recipe {
   directions: string[];
   restrictions: string[];
   ingredients: Ingredient[];
+  user_id?: number;
   user_uuid?: string;
 }

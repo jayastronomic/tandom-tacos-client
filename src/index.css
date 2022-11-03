@@ -6,3 +6,7 @@
   font-family: "milkhoney";
   src: url("./fonts/milkhoney.otf");
 }
+
+.hide-scrollbar::-webkit-scrollbar {
+  display: none;
+}

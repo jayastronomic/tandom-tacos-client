@@ -5,7 +5,7 @@ export const fetchRecipes = async (): Promise<any> => {
 };
 
 export const createRecipe = async (data: object): Promise<any> => {
-  return await request("/api/v1/recipes", "POST", data);
+  return await request("/api/v1/recipes", "POST", data, false);
 };
 
 export const showRecipe = async (id: string): Promise<any> => {

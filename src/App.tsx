@@ -1,27 +1,34 @@
 import { FC, useEffect } from "react";
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, useNavigate, useLocation } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { loginStatus } from "./network/User";
 import { fetchUserSuccess } from "./features/user/userSlice";
-import { useAppSelector } from "./app/hooks";
 import SignUp from "./pages/SignUpPage/SignUp";
 import Home from "./pages/HomePage/Home";
 import Login from "./pages/LoginPage/Login";
 import Explore from "./pages/ExplorePage/Explore";
 import Recipe from "./pages/RecipePage/Recipe";
 import Profile from "./pages/ProfilePage/Profile";
-
 import AppWrapper from "./components/AppWrapper";
+import { User } from "./interfaces/user.interface";
 
 const App: FC = (): JSX.Element => {
-  const authUser = useAppSelector((state) => state.user);
   const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const location = useLocation();
 
   useEffect(() => {
     const fetchUser = async () => {
-      dispatch(fetchUserSuccess(await loginStatus()));
+      const authUser: User = await loginStatus().catch(console.error);
+      if (!authUser.logged_in) {
+        navigate("/login", {
+          state: { from: location.pathname, redirected: true },
+        });
+      } else {
+        dispatch(fetchUserSuccess(authUser));
+      }
     };
-    fetchUser().catch(console.error);
+    fetchUser();
   }, []);
 
   return (

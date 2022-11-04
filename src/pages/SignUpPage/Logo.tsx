@@ -2,7 +2,7 @@ import React, { FC, useEffect, useState } from "react";
 import logo from "../../images/tandem_taco_logo.png";
 import Tandem from "./Tandem";
 
-const Logo: FC = () => {
+const Logo: FC = (): JSX.Element => {
   return (
     <div className="flex flex-col justify-centr items-center space-y-8">
       <Tandem />

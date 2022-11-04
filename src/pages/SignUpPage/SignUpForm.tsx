@@ -5,7 +5,7 @@ import { useDispatch } from "react-redux";
 import { fetchUserSuccess } from "../../features/user/userSlice";
 import { User } from "../../interfaces/user.interface";
 
-const SignUpForm: FC = () => {
+const SignUpForm: FC = (): JSX.Element => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 

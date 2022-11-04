@@ -9,6 +9,8 @@ const initialState: Recipe = {
   ingredients: [],
   user_uuid: "",
   user_id: 0,
+  user_username: "",
+  image_exist: false,
 };
 export const recipeSlice = createSlice({
   name: "recipe",

@@ -8,4 +8,8 @@ export interface Recipe {
   ingredients: Ingredient[];
   user_id?: number;
   user_uuid?: string;
+  user_username?: string;
+  ingredients_quantities?: any;
+  image_url?: string;
+  image_exist: boolean;
 }

@@ -4,6 +4,7 @@ import {
   SearchBox,
   RefinementList,
   InfiniteHits,
+  ToggleRefinement,
 } from "react-instantsearch-hooks-web";
 import Hit from "../components/Hit";
 
@@ -13,6 +14,7 @@ const searchClient = instantMeiliSearch(
 );
 
 const ResultsContainer = () => {
+  console.log(Hit);
   return (
     <div className="flex flex-col overflow-auto items-center h-screen hide-scrollbar">
       <InstantSearch searchClient={searchClient} indexName="Recipe">
@@ -27,17 +29,38 @@ const ResultsContainer = () => {
           }}
           className=""
           placeholder={"Search Tandem Taco"}
+          title="My custom title"
         />
-
-        <RefinementList
-          operator="and"
-          attribute="restrictions"
-          classNames={{
-            root: "bg-white rounded-xl mt-2 w-[20rem] p-4 shadow",
-            label: "space-x-2",
-            list: "text-gray-600 font-semibold text-sm",
-          }}
-        />
+        <div className="flex flex-col md:flex-row space-y-4 md:space-y-0 md:space-x-4">
+          <div>
+            <h1 className="bg-white rounded-t-xl px-4 shadow border-b font-medium">
+              Restrictions
+            </h1>
+            <RefinementList
+              operator="and"
+              attribute="restrictions"
+              classNames={{
+                root: "bg-white rounded-b-xl w-[20rem] p-4 shadow",
+                label: "space-x-2",
+                list: "text-gray-600 font-semibold text-sm",
+              }}
+            />
+          </div>
+          <div>
+            <h1 className="bg-white rounded-t-xl px-4 shadow border-b font-medium">
+              Ingredients
+            </h1>
+            <RefinementList
+              operator="and"
+              attribute="ingredients"
+              classNames={{
+                root: "bg-white rounded-b-xl w-[20rem] p-4 shadow",
+                label: "space-x-2",
+                list: "text-gray-600 font-semibold text-sm",
+              }}
+            />
+          </div>
+        </div>
         <InfiniteHits
           hitComponent={Hit}
           classNames={{

@@ -5,6 +5,7 @@ export const request = async (
   path: string,
   method: string,
   payload: object | null = null,
+  applicationJSON = true,
   headers: object = {}
 ): Promise<any> => {
   const API: string = backend + path;
@@ -15,8 +16,12 @@ export const request = async (
     options.headers = headers;
     options.headers["Access-Control-Allow-Origin"] = "*";
     if (!(method === "GET" || method === "DELETE")) {
-      options.headers["Content-Type"] = "application/json";
-      options.body = JSON.stringify(payload) || {};
+      if (applicationJSON) {
+        options.headers["Content-Type"] = "application/json";
+        options.body = JSON.stringify(payload) || {};
+      } else {
+        options.body = payload;
+      }
     }
   }
   options.credentials = "include";

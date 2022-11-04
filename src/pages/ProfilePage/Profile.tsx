@@ -1,3 +1,5 @@
+import { solid } from "@fortawesome/fontawesome-svg-core/import.macro";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useAppSelector } from "../../app/hooks";
 import AuthUserRecipeContainer from "../../containers/AuthUserRecipeContainer";
 import mascot from "../../images/mascot.gif";
@@ -8,13 +10,11 @@ const Profile = () => {
   return (
     <div className="flex flex-col h-screen overflow-auto bg-orange-50 flex-1 hide-scrollbar">
       <div className="flex flex-col p-4">
-        <div className="rounded-full overflow-hidden w-64 m-auto border-2 border-gray-400 shadow-xl">
-          <img
-            className="object-cover"
-            src={
-              "https://pbs.twimg.com/profile_images/1582447814692507651/VmUArPWB_400x400.jpg"
-            }
-            alt="Profile Image"
+        <div className="flex justify-center items-center rounded-full overflow-hidden h-56 w-56 m-auto border-2 border-gray-400 shadow-xl bg-gray-100">
+          <FontAwesomeIcon
+            icon={solid("user")}
+            size="5x"
+            className="text-gray-600"
           />
         </div>
 

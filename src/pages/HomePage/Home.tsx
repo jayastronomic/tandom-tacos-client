@@ -14,6 +14,7 @@ const Home: FC = (): JSX.Element => {
     };
     fetchedRecipes();
   }, []);
+  console.log(recipes);
   return (
     <div className="flex flex-col flex-1 h-screen bg-orange-50">
       <RecipeContainer recipes={recipes} />

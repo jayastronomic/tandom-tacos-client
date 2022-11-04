@@ -4,6 +4,7 @@ import { useDispatch } from "react-redux";
 import { useAppSelector } from "../../app/hooks";
 import { fetchRecipeSuccess } from "../../features/recipes/recipeSlice";
 import { showRecipe } from "../../network/Recipe";
+import taco from "../../images/default.png";
 
 const Recipe: FC = (): JSX.Element => {
   const location = useLocation();
@@ -19,20 +20,39 @@ const Recipe: FC = (): JSX.Element => {
   return (
     <div className="flex flex-col h-screen overflow-auto bg-orange-50 flex-1 space-y-10 pb-4 text-gray-800">
       <div className="h-46">
-        <img
-          className="object-cover w-full h-full"
-          alt=""
-          src="https://urbanmatter.com/chicago/wp-content/uploads/2016/08/61658265_1031292940394672_2473784691572867072_o.jpg"
-        />
+        {recipe.image_exist ? (
+          <img
+            className="object-cover w-full h-full"
+            alt=""
+            src={recipe.image_url}
+          />
+        ) : (
+          <img className="object-cover w-full h-full" alt="" src={taco} />
+        )}
+      </div>
+
+      <div className="flex space-x-4 items-center text-sm text-right py-1 text-gray-600 font-semibold bg-white rounded px-4">
+        {!!recipe.user_id ? (
+          <p className="text-xl">
+            Recipe by{" "}
+            <span className="hover:underline text-blue-500">
+              {recipe.user_username}
+            </span>
+          </p>
+        ) : (
+          <p className="text-xl">
+            Recipe by <span className="text-orange-300">Tandem</span>
+          </p>
+        )}
       </div>
 
       <div className="flex flex-col px-4 space-y-2">
         <h1 className="text-5xl font-extralight">{recipe.name}</h1>
         <h2 className="text-2xl font-medium">Ingredients</h2>
         <div className="space-y-3">
-          {recipe.ingredients.map((recipe) => {
+          {recipe.ingredients.map((recipe, i) => {
             return (
-              <p>
+              <p key={i}>
                 - {recipe.quantity} {recipe.name}
               </p>
             );
@@ -44,9 +64,9 @@ const Recipe: FC = (): JSX.Element => {
         <h1 className="text-2xl font-medium">Directions</h1>
         {recipe.directions.map((direction, i) => {
           return (
-            <div className="flex flex-col">
+            <div key={i} className="flex flex-col">
               <h6 className="font-semibold"> Step {i + 1}</h6>
-              <p className="break-all">{direction}</p>
+              <p className="break-words">{direction}</p>
             </div>
           );
         })}

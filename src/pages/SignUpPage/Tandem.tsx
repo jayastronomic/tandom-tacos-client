@@ -1,6 +1,6 @@
 import React, { FC } from "react";
 
-const Tandem: FC = () => {
+const Tandem: FC = (): JSX.Element => {
   return (
     <div>
       <svg

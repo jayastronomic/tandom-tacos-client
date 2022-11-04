@@ -1,4 +1,4 @@
-import React, { FC } from "react";
+import { FC } from "react";
 import RecipeCard from "./RecipeCard";
 
 const Hit: FC = ({ hit }: any): JSX.Element => {

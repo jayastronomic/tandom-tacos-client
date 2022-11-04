@@ -1,10 +1,9 @@
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useAppSelector } from "../app/hooks";
-import { regular } from "@fortawesome/fontawesome-svg-core/import.macro";
 import { Recipe } from "../interfaces/recipe.interface";
 import { Highlight } from "react-instantsearch-hooks-web";
 import { Link, useLocation } from "react-router-dom";
 import { Ingredient } from "../interfaces/ingredient.interface";
+import taco from "../images/default.png";
 
 type RecipceCardProps = {
   recipe: Recipe;
@@ -24,11 +23,15 @@ const RecipeCard: any = ({ recipe }: RecipceCardProps): JSX.Element => {
   return (
     <div className={cardContainerClass}>
       <div className="relative h-1/2 overflow-hidden rounded-t">
-        <img
-          className="object-cover w-full h-full"
-          alt=""
-          src="https://urbanmatter.com/chicago/wp-content/uploads/2016/08/61658265_1031292940394672_2473784691572867072_o.jpg"
-        />
+        {recipe.image_exist ? (
+          <img
+            className="object-cover w-full h-full"
+            alt=""
+            src={recipe.image_url}
+          />
+        ) : (
+          <img className="object-cover w-full h-full" alt="" src={taco} />
+        )}
         <div className="absolute flex flex-col justify-center items-center inset-0 bg-opacity-40 w-full h-full bg-neutral-900 ">
           <div className="flex justify-center">
             <p className="text-white font-extralight text-2xl">
@@ -60,30 +63,27 @@ const RecipeCard: any = ({ recipe }: RecipceCardProps): JSX.Element => {
                   </p>
                 );
               })
-            : recipe.ingredients.map((ingredient: any) => {
+            : recipe.ingredients.map((ingredient: any, i) => {
                 return (
                   <p>
-                    {ingredient[1]} - {ingredient[0]}
+                    {recipe.ingredients_quantities[i]} - {ingredient}
                   </p>
                 );
               })}
         </div>
         <div className="absolute top-40 right-3 flex space-x-4 items-center text-sm text-right py-1 text-gray-600 font-semibold bg-white rounded px-4">
-          <FontAwesomeIcon icon={regular("heart")} size="xl" />
-          <p>
-            {!!recipe.user_id ? (
-              <p className="text-xs">
-                Recipe by{" "}
-                <span className="hover:underline text-blue-500">
-                  {authUser.username}
-                </span>
-              </p>
-            ) : (
-              <p className="text-xs">
-                Recipe by <span className="text-orange-300">Tandem</span>
-              </p>
-            )}
-          </p>
+          {!!recipe.user_id ? (
+            <p className="text-xs">
+              Recipe by{" "}
+              <span className="hover:underline text-blue-500">
+                {recipe.user_username}
+              </span>
+            </p>
+          ) : (
+            <p className="text-xs">
+              Recipe by <span className="text-orange-300">Tandem</span>
+            </p>
+          )}
         </div>
         <Link
           className="absolute top-8 right-5 text-sm text-white font-semibold  bg-blue-500 rounded px-2 hover:bg-blue-600"

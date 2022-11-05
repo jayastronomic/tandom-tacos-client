@@ -49,6 +49,8 @@ When starting the server for the front-end, you will be automatically be redirec
 
 [Tandem Taco Signup Page](./src/images/flow/SignUp-Flow.png)
 
+<img src="./src/images/flow/SignUp-Flow.png" />
+
 After creating an account, you will land on the home page where you can view all of the taco recipes that have been created:
 
 [Tandem Taco Home Page](./src/images/flow/Home.png)

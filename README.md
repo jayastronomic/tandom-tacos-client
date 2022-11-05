@@ -45,6 +45,12 @@ As a user of this application, you have the ability to look at all of the taco r
 
 ## Tandem Taco User Flow
 
+### WARNING
+
+**_I built this project with mobile first in mind, so it is best to minimize the browser window to get the best experience._**
+
+### WARNING
+
 When starting the server for the front-end, you will be automatically be redirected if you are not logged into the application. To use the application you must create an account:
 
 [Tandem Taco Signup Page](./src/images/flow/SignUp-Flow.png)

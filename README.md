@@ -34,8 +34,8 @@ npm start
 
 ## Tech Stack
 
-React w/ TypeScript
-Tailwindcss
+React w/ TypeScript <br/>
+Tailwindcss <br/>
 Redux ToolKit
 
 ## Introduction

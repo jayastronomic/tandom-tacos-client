@@ -49,15 +49,19 @@ When starting the server for the front-end, you will be automatically be redirec
 
 [Tandem Taco Signup Page](./src/images/flow/SignUp-Flow.png)
 
-<img src="./src/images/flow/SignUp-Flow.png" class="w-64"/>
+<img src="./src/images/flow/SignUp-Flow.png" class="width: 20rem;"/>
 
 After creating an account, you will land on the home page where you can view all of the taco recipes that have been created:
 
 [Tandem Taco Home Page](./src/images/flow/Home.png)
 
+<img src="./src/images/flow/Home.png" class="width: 20rem;"/>
+
 The side navigation bar has 3 tab selections. To search and filter taco recipes click on the Explore tab. After clicking on the explore tab you will be navaigated to this page:
 
 [Tandem Tcao Explore Page](./src/images/flow/Explore.png)
+
+<img src="./src/images/flow/Explore.png" class="width: 20rem;"/>
 
 Here is where you can use the search bar to type in a recipe name. The recipe names will be highlighted to match the the text that is being typed in the search input. All searching is done in realtime, so the results will update as you are typing. To find more specific recipes by restrictions and ingredients, there two filtering tools to help you dwindle down on your results.
 
@@ -67,6 +71,10 @@ As a user, you can also create new taco recipes of your own. On the navigation b
 
 [Add Taco Form](./src/images/flow/Form.png)
 
+<img src="./src/images/flow/Form.png" class="width: 20rem;"/>
+
 After adding your recipe, you can view the recipes you created on the profile page by clicking the the profile tab on the navigation bar. Each recipe card shows who created the recipe and also contains a link that will take you to the recipe's page showing more details about the recipe:
 
 [Show Page](./src/images/flow/Show.png)
+
+<img src="./src/images/flow/Show.png" class="width: 20rem;"/>

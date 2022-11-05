@@ -21,11 +21,13 @@ const Recipe: FC = (): JSX.Element => {
     <div className="flex flex-col h-screen overflow-auto bg-orange-50 flex-1 space-y-10 pb-4 text-gray-800">
       <div className="h-46">
         {recipe.image_exist ? (
-          <img
-            className="object-cover w-full h-full"
-            alt=""
-            src={recipe.image_url}
-          />
+          <div className="flex items-center justify-center h-72 overflow-hidden">
+            <img
+              className="object-cover w-[40rem]"
+              alt=""
+              src={recipe.image_url}
+            />
+          </div>
         ) : (
           <img className="object-cover w-full h-full" alt="" src={taco} />
         )}

@@ -14,7 +14,6 @@ const searchClient = instantMeiliSearch(
 );
 
 const ResultsContainer = () => {
-  console.log(Hit);
   return (
     <div className="flex flex-col overflow-auto items-center h-screen hide-scrollbar">
       <InstantSearch searchClient={searchClient} indexName="Recipe">

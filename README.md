@@ -1,46 +1,70 @@
-# Getting Started with Create React App
+# Getting Started with Tando Taco Client
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app), using the [Redux](https://redux.js.org/) and [Redux Toolkit](https://redux-toolkit.js.org/) TS template.
 
-## Available Scripts
+## Environment Setup for Tandem Taco Client
 
-In the project directory, you can run:
+This project is the Client side of Tandem Taco. To get the client running, it is suggested to start the backend configuration and spin the server. Here is the link for the backend repo https://github.com/jayastronomic/tandem-tacos-server.
 
-### `npm start`
+Cors is already set up for the client and backend to communicate through HTTP request.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+Node version:
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+```
+v.18.0.0
+```
 
-### `npm test`
+React version:
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+```
+v18.2.0
+```
 
-### `npm run build`
+To install the packages for this project, run the command:
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+```
+npm install
+```
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+To start the server and spin up Tandem Taco Client, run:
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+```
+npm start
+```
 
-### `npm run eject`
+## Tech Stack
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+React w/ TypeScript
+Tailwindcss
+Redux ToolKit
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+## Introduction
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+Hey Tandem Team! Welcome to Tandem Taco, an application built to help you guys come up with new taco recipes.
+As a user of this application, you have the ability to look at all of the taco recipes that have been added to the application. You can also create new taco recipes, so you can always share what crazy taco ideas you come up with. You have the ability to search for recipes by name, and filter the results by restrictions and the ingredients that are in the recipes. Users can view their recipes that they created and see the details of each recipe which shows the directions on how to cook and prepare the tacos.
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+## Tandem Taco User Flow
 
-## Learn More
+When starting the server for the front-end, you will be automatically be redirected if you are not logged into the application. To use the application you must create an account:
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+[Tandem Taco Signup Page](./src/images/flow/SignUp-Flow.png)
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+After creating an account, you will land on the home page where you can view all of the taco recipes that have been created:
+
+[Tandem Taco Home Page](./src/images/flow/Home.png)
+
+The side navigation bar has 3 tab selections. To search and filter taco recipes click on the Explore tab. After clicking on the explore tab you will be navaigated to this page:
+
+[Tandem Tcao Explore Page](./src/images/flow/Explore.png)
+
+Here is where you can use the search bar to type in a recipe name. The recipe names will be highlighted to match the the text that is being typed in the search input. All searching is done in realtime, so the results will update as you are typing. To find more specific recipes by restrictions and ingredients, there two filtering tools to help you dwindle down on your results.
+
+## Bonus Features
+
+As a user, you can also create new taco recipes of your own. On the navigation bar, there is a button that resembles a taco with a plus sign on it that you can click to open up a modal to fill out a form to add a new recipe. You can add a photo, restrictions, ingedients, and directions on how to prepare your recipe.
+
+[Add Taco Form](./src/images/flow/Form.png)
+
+After adding your recipe, you can view the recipes you created on the profile page by clicking the the profile tab on the navigation bar. Each recipe card shows who created the recipe and also contains a link that will take you to the recipe's page showing more details about the recipe:
+
+[Show Page](./src/images/flow/Show.png)

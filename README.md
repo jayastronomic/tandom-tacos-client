@@ -47,7 +47,7 @@ As a user of this application, you have the ability to look at all of the taco r
 
 ### WARNING
 
-`#FFFF00`**_I built this project with mobile first in mind, so it is best to minimize the browser window to get the best experience._**`#FFFF00`
+**_$${\colorI built this project with mobile first in mind, so it is best to minimize the browser window to get the best experience.Green}$$_**
 
 When starting the server for the front-end, you will be automatically be redirected if you are not logged into the application. To use the application you must create an account:
 
